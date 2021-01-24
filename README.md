@@ -1,1 +1,1 @@
-# js-hw-12-countries
+# initial-repository

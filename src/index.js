@@ -1,0 +1,36 @@
+import { alert, notice, info, success, error,  defaultModules } from '../node_modules/@pnotify/core/dist/PNotify.js';
+import * as PNotifyMobile from '../node_modules/@pnotify/mobile/dist/PNotifyMobile.js';
+defaultModules.set(PNotifyMobile, {});
+import "@pnotify/core/dist/PNotify.css";
+import "@pnotify/core/dist/BrightTheme.css";
+
+import css from "./css/style.css";
+import template from './template.hbs'
+import debounce from 'lodash.debounce'
+import fetchCountries from './fetchCountries.js'
+
+
+const input = document.querySelector('#input-find-country');
+const countryInfo = document.querySelector('#country-info');
+
+input.addEventListener('input', debounce(() => {
+
+    const inputCountryName = input.value;
+    countryInfo.innerHTML = '';
+    
+    fetchCountries(inputCountryName)
+        .then((data) => {
+            if (data.length > 10) {
+                return notice({ text: "Enter a more precise request", delay: 1000 })
+            };
+
+            if (data.status === 404) {
+                return error({ text: "Can't find country you're trying to search!", delay: 1500 })
+            };
+
+            const showCountry = template(data);
+            countryInfo.insertAdjacentHTML('beforeend', showCountry);
+        })
+        .catch(error => console.error(error))
+
+}, 500));
