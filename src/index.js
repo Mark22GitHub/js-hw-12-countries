@@ -1,10 +1,12 @@
-import { alert, notice, info, success, error,  defaultModules } from '../node_modules/@pnotify/core/dist/PNotify.js';
+import css from "./css/style.css";
+
+import { alert, notice, info, success, error, defaultModules } from '../node_modules/@pnotify/core/dist/PNotify.js';
 import * as PNotifyMobile from '../node_modules/@pnotify/mobile/dist/PNotifyMobile.js';
 defaultModules.set(PNotifyMobile, {});
 import "@pnotify/core/dist/PNotify.css";
 import "@pnotify/core/dist/BrightTheme.css";
 
-import css from "./css/style.css";
+
 import template from './template.hbs'
 import debounce from 'lodash.debounce'
 import fetchCountries from './fetchCountries.js'
