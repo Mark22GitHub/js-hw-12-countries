@@ -28,8 +28,8 @@ input.addEventListener('input', debounce(() => {
                 return error({ text: "Can't find country you're trying to search!", delay: 1500 })
             };
 
-            const showCountry = template(data);
-            countryInfo.insertAdjacentHTML('beforeend', showCountry);
+            const markup = template(data);
+            countryInfo.insertAdjacentHTML('beforeend', markup);
         })
         .catch(error => console.error(error))
 
