@@ -6,7 +6,6 @@ defaultModules.set(PNotifyMobile, {});
 import "@pnotify/core/dist/PNotify.css";
 import "@pnotify/core/dist/BrightTheme.css";
 
-
 import template from './templates/template.hbs'
 import templateList from './templates/templateList.hbs'
 import debounce from 'lodash.debounce'
@@ -17,7 +16,6 @@ const input = document.querySelector('#input-find-country');
 const countryInfo = document.querySelector('#country-info');
 
 input.addEventListener('input', debounce(() => {
-
     const inputCountryName = input.value;
     countryInfo.innerHTML = '';
     
