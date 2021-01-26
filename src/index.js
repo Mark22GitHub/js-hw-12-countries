@@ -16,10 +16,12 @@ const input = document.querySelector('#input-find-country');
 const countryInfo = document.querySelector('#country-info');
 
 input.addEventListener('input', debounce(() => {
+
     const inputCountryName = input.value;
     countryInfo.innerHTML = '';
     
     if (inputCountryName.length > 0) {
+        
         fetchCountries(inputCountryName)
         .then((data) => {
             
