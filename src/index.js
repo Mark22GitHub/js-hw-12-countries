@@ -21,33 +21,33 @@ input.addEventListener('input', debounce(() => {
     countryInfo.innerHTML = '';
     
     if (inputCountryName.length > 0) {
-        
+
         fetchCountries(inputCountryName)
-        .then((data) => {
+            .then((data) => {
             
-            if (data.length === 1 || data.status === 200 ) {
-                const markup = template(data);
-                countryInfo.insertAdjacentHTML('beforeend', markup);
-                success({ text: "Success! Here's your country!", delay: 1500 })
-                return;
-            }
+                if (data.length === 1 || data.status === 200) {
+                    const markup = template(data);
+                    countryInfo.insertAdjacentHTML('beforeend', markup);
+                    success({ text: "Success! Here's your country!", delay: 1500 })
+                    return;
+                }
 
-            if (data.length > 1 && data.length < 10) {
-                const markupList = templateList(data);
-                countryInfo.insertAdjacentHTML('beforeend', markupList);
-            }
+                if (data.length > 1 && data.length < 10) {
+                    const markupList = templateList(data);
+                    countryInfo.insertAdjacentHTML('beforeend', markupList);
+                }
 
-            if (data.length > 10) {
-                return notice({ text: "Enter a more precise request", delay: 1000 })
-            };
+                if (data.length > 10) {
+                    return notice({ text: "Enter a more precise request", delay: 1000 })
+                };
 
-            if (data.status === 404) {
-                return error({ text: "Can't find country you're trying to search!", delay: 1500 })
-            };
+                if (data.status === 404) {
+                    return error({ text: "Can't find country you're trying to search!", delay: 1500 })
+                };
                   
-        })
-        .catch(error => console.error(error))
-
+            })
+            .catch(error => console.error(error));
+        
     } 
 
 }, 500));
