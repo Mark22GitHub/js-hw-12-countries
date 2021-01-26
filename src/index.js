@@ -7,7 +7,8 @@ import "@pnotify/core/dist/PNotify.css";
 import "@pnotify/core/dist/BrightTheme.css";
 
 
-import template from './template.hbs'
+import template from './templates/template.hbs'
+import templateList from './templates/templateList.hbs'
 import debounce from 'lodash.debounce'
 import fetchCountries from './fetchCountries.js'
 
@@ -23,6 +24,19 @@ input.addEventListener('input', debounce(() => {
     if (inputCountryName.length > 0) {
         fetchCountries(inputCountryName)
         .then((data) => {
+            
+            if (data.length === 1 || data.status === 200 ) {
+                const markup = template(data);
+                countryInfo.insertAdjacentHTML('beforeend', markup);
+                success({ text: "Success! Here's your country!", delay: 1500 })
+                return;
+            }
+
+            if (data.length > 1 && data.length < 10) {
+                const markupList = templateList(data);
+                countryInfo.insertAdjacentHTML('beforeend', markupList);
+            }
+
             if (data.length > 10) {
                 return notice({ text: "Enter a more precise request", delay: 1000 })
             };
@@ -30,9 +44,7 @@ input.addEventListener('input', debounce(() => {
             if (data.status === 404) {
                 return error({ text: "Can't find country you're trying to search!", delay: 1500 })
             };
-
-            const markup = template(data);
-            countryInfo.insertAdjacentHTML('beforeend', markup);
+                  
         })
         .catch(error => console.error(error))
 
