@@ -20,7 +20,8 @@ input.addEventListener('input', debounce(() => {
     const inputCountryName = input.value;
     countryInfo.innerHTML = '';
     
-    fetchCountries(inputCountryName)
+    if (inputCountryName.length > 0) {
+        fetchCountries(inputCountryName)
         .then((data) => {
             if (data.length > 10) {
                 return notice({ text: "Enter a more precise request", delay: 1000 })
@@ -34,5 +35,7 @@ input.addEventListener('input', debounce(() => {
             countryInfo.insertAdjacentHTML('beforeend', markup);
         })
         .catch(error => console.error(error))
+
+    } 
 
 }, 500));
